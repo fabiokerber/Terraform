@@ -27,6 +27,7 @@ Adicionar chave ssh publica padrão que pode ser usada para todas as regiões.
 |Tool    |Link|
 |-------------|-----------|
 |`Terraform`| https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_windows_amd64.zip
+|`AWS Console`| https://console.aws.amazon.com/console/home
 |`AWS Cli`| https://awscli.amazonaws.com/AWSCLIV2.msi
 |`Terraform Providers`| https://registry.terraform.io/browse/providers
 |`Terraform Providers (AWS)`| https://registry.terraform.io/providers/hashicorp/aws/latest/docs
