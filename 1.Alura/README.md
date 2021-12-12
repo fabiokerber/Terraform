@@ -23,8 +23,8 @@ provider "aws" {
     region = "us-east-1"
 }
 
-resource "aws_instance" "dev"{ #INSTANCIA PARA AMBIENTE DEV
-    ami = "ami-0e66f5495b4efdd0f" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO sa-east-1 > https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#LaunchInstanceWizard:
+resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
+    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO su-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
     key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
 }
@@ -39,9 +39,8 @@ provider "aws" {
     region = "us-east-1"
 }
 
-resource "aws_instance" "dev"{ #INSTANCIA PARA AMBIENTE DEV
-    count = 3 #IRA SUBIR 3 INSTANCIAS IGUAIS NA AWS
-    ami = "ami-0e66f5495b4efdd0f" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO sa-east-1 > https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#LaunchInstanceWizard:
+resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
+    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO su-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
     key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
     tags = {
@@ -49,8 +48,11 @@ resource "aws_instance" "dev"{ #INSTANCIA PARA AMBIENTE DEV
     }
 }
 
-> D:\terraform\terraform.exe init
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura init (Baixa os pacotes necessários e inicializa a configuração na pasta indicada)
 
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan (Como ficará o ambiente)
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura apply (Aplica as configurações ao ambiente da nuvem)
 ```
 <br />
 
