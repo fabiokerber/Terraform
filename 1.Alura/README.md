@@ -25,7 +25,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
-    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO su-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
+    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO us-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
     key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
 }
@@ -41,7 +41,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
-    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO su-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
+    ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO us-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
     key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
     tags = {
@@ -138,5 +138,71 @@ resource "aws_s3_bucket" "dev4" {
         Name = "kerberlabs-dev4"
     }
 }
+```
+<br />
+
+**Quebrando a configuração em mais arquivos**
+```
+Criar security-group.tf
+
+Adicionar a security-group.tf e remover do main.tf
+---
+resource "aws_security_group" "acesso-ssh" {
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    tags = {
+        Name = "ssh"
+    }
+}
+---
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
+```
+<br />
+
+**Recursos em nova região**
+*https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#LaunchInstanceWizard:*
+```
+Adicionar a main.tf
+---
+provider "aws" {
+    alias = "us-east-2"
+    version = "~> 3.0" 
+    region = "us-east-2"
+}
+
+resource "aws_instance" "dev6" { 
+    provider "aws.us-east-2" (Aponta para alias do resource acima)
+    ami = "ami-0629230e074c580f2" 
+    instance_type = "t2.micro"
+    key_name = "terraformpem-aws"
+    tags = {
+        Name = "dev6"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
+}
+---
+
+Adicionar a security-group.tf
+---
+resource "aws_security_group" "acesso-ssh-us-east-2" {
+    provider = "aws.us-east-2"
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+    tags = {
+        Name = "ssh"
+    }
+}
+---
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
 ```
 <br />
