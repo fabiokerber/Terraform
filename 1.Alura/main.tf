@@ -7,7 +7,7 @@ resource "aws_instance" "develop" {
     count = 3 
     ami = "ami-083654bd07b5da81d" 
     instance_type = "t2.micro"
-    key_name = "terraform-aws"
+    key_name = "terraformpem-aws"
     tags = {
         Name = "dev${count.index}"
     }
