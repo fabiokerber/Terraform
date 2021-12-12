@@ -1,1 +1,2 @@
 *.exe
+.terraform.lock.hcl
