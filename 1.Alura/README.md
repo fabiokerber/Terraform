@@ -102,5 +102,41 @@ resource "aws_instance" "develop" {
 > D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
 
 > D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura apply
+
+> ssh -i "terraformpem-aws.pem" ubuntu@ec2-54-90-95-102.compute-1.amazonaws.com
+```
+<br />
+
+**Referências entre recursos**
+```
+> D:\terraform\terraform.exe show
+
+vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
+```
+<br />
+
+**Criação do bucket S3 + Vínculo de recurso**
+*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket*
+*https://s3.console.aws.amazon.com/s3/home?region=us-east-1#*
+```
+resource "aws_instance" "dev4" { 
+    ami = "ami-083654bd07b5da81d" 
+    instance_type = "t2.micro"
+    key_name = "terraformpem-aws"
+    tags = {
+        Name = "dev4"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
+    depends_on = [aws_s3_bucket.dev4] (Vínculo conforme bucket s3 abaixo. Primeiro cria o bucket primeiro e depois a instancia dev4)
+}
+
+resource "aws_s3_bucket" "dev4" {
+    bucket = "kerberlabs-dev4"
+    acl = "private" (Privado sem acesso publico)
+
+    tags = {
+        Name = "kerberlabs-dev4"
+    }
+}
 ```
 <br />
