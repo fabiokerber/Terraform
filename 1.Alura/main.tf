@@ -1,10 +1,14 @@
 provider "aws" {
-    version = "~> 3.0" #CHECAR VERSÃO EM https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+    version = "~> 3.0" 
     region = "us-east-1"
 }
 
-resource "aws_instance" "dev"{ #INSTANCIA PARA AMBIENTE DEV
-    ami = "ami-0e66f5495b4efdd0f" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO sa-east-1 > https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#LaunchInstanceWizard:
-    instance_type = "t2.micro" #FREE TIER
-    key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
+resource "aws_instance" "dev"{ 
+    count = 3 
+    ami = "ami-0e66f5495b4efdd0f" 
+    instance_type = "t2.micro"
+    key_name = "terraform-aws"
+    tags = {
+        Name = "dev${count.index}"
+    }
 }

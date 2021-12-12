@@ -12,6 +12,9 @@ Criar conta de usuário AWS
         Create group (admin) > Check AdministratorAccess
         Download .csv!!!
 
+Download terraform.exe:
+    https://www.terraform.io/downloads.html
+
 Apos instalar o AWS CLI:
 > aws configure: 
     AWS Access Key ID: {Access key ID} (new_user_credentials.csv)
