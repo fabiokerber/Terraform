@@ -19,6 +19,6 @@ resource "aws_security_group" "acesso-ssh-us-east-2" {
         cidr_blocks = ["0.0.0.0/0"]
     }
     tags = {
-        Name = "ssh"
+        Name = "ssh-us-east-2"
     }
 }

@@ -176,10 +176,10 @@ provider "aws" {
 }
 
 resource "aws_instance" "dev6" { 
-    provider = "aws.us-east-2" (Aponta para alias do resource acima)
+    provider = "aws.us-east-2"
     ami = "ami-0629230e074c580f2" 
     instance_type = "t2.micro"
-    key_name = "terraformpem-aws"
+    key_name = "terraformpem-aws-us-east-2"
     tags = {
         Name = "dev6"
     }
@@ -198,7 +198,7 @@ resource "aws_security_group" "acesso-ssh-us-east-2" {
         cidr_blocks = ["0.0.0.0/0"]
     }
     tags = {
-        Name = "ssh"
+        Name = "ssh-us-east-2"
     }
 }
 ---
