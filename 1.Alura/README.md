@@ -11,6 +11,8 @@
 
 ```
 > D:\terraform\terraform.exe --version (Checar versão)
+> D:\terraform\terraform.exe show (Mostra o status atual do ambiente > terraform.tfstate < aqui onde estão as configurações padrões caso voce nao informe nada em alguns campos)
+> aws ec2 describe-security-groups (Lista todos os Security Groups)
 
 ```
 <br />
@@ -56,7 +58,7 @@ resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
 <br />
 
 **Security Groups (bloquear acesso entre elas mas permitir acesso externo via ssh)**
-*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group
+*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group*
 ```
 !!! STOP Instacias
 
@@ -77,7 +79,28 @@ resource "aws_security_group" "acesso-ssh" {
 
 > D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura apply
 
-Checar: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:
+**Checar:** https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:
 ```
 <br />
 
+**Apply Security Groups**
+*https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:*
+```
+!!! Buscar o ID no link acima
+
+resource "aws_instance" "develop" { 
+    count = 3 
+    ami = "ami-083654bd07b5da81d" 
+    instance_type = "t2.micro"
+    key_name = "terraform-aws"
+    tags = {
+        Name = "dev${count.index}"
+    }
+    vpc_security_group_ids = ["sg-076f3a8ec77016ab4"] (Caso queira adicionar mais grupos ou manter o default, adicionar e separar por vírgulas)
+}
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura apply
+```
+<br />
