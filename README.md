@@ -6,25 +6,25 @@
 
 Pré requisito:
 
-Criar conta de usuário AWS 
-    IAM > Users > Add User > terraform-aws
-        Access type (Programmatic acess)
-        Create group (admin) > Check AdministratorAccess
+Criar conta de usuário AWS<br>
+    IAM > Users > Add User > terraform-aws<br>
+        Access type (Programmatic acess)<br>
+        Create group (admin) > Check AdministratorAccess<br>
         Download .csv!!!
 
-Download terraform.exe:
+Download terraform.exe:<br>
     https://www.terraform.io/downloads.html
 
-Apos instalar o AWS CLI:
-> aws configure: 
-    AWS Access Key ID: {Access key ID} (new_user_credentials.csv)
-    AWS Secret Access Key: {Secret access key} (new_user_credentials.csv)
-    Default region name: {us-east-1}
-    Default region format: {json}
+Apos instalar o AWS CLI:<br>
+> aws configure:<br>
+    AWS Access Key ID: {Access key ID} (new_user_credentials.csv)<br>
+    AWS Secret Access Key: {Secret access key} (new_user_credentials.csv)<br>
+    Default region name: {us-east-1}<br>
+    Default region format: {json}<br>
 
-Adicionar chave ssh publica padrão que pode ser usada para todas as regiões.
-    https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#KeyPairs:
-    name: terraform-aws
+Adicionar chave ssh publica padrão que pode ser usada para todas as regiões.<br>
+    https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#KeyPairs:<br>
+    name: terraform-aws<br>
     Import key.pub
 
 |Tool    |Link|
