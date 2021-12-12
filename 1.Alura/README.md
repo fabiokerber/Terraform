@@ -176,7 +176,7 @@ provider "aws" {
 }
 
 resource "aws_instance" "dev6" { 
-    provider "aws.us-east-2" (Aponta para alias do resource acima)
+    provider = "aws.us-east-2" (Aponta para alias do resource acima)
     ami = "ami-0629230e074c580f2" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws"
