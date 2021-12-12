@@ -9,7 +9,6 @@
 
 **Início**
 
-*PowerShell*
 ```
 > D:\terraform\terraform.exe --version (Checar versão)
 
@@ -56,6 +55,29 @@ resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
 ```
 <br />
 
+**Security Groups (bloquear acesso entre elas mas permitir acesso externo via ssh)**
+*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group
+```
+!!! STOP Instacias
 
-# STOP Instacias
-#> 
+resource "aws_security_group" "acesso-ssh" {
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = ["0.0.0.0/0", "x.x.x.x/x"] !!! Inserir o IP fixo de onde virá a conexão ssh para as instancias
+    }
+
+    tags = {
+        Name = "ssh"
+    }
+}
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
+
+> D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura apply
+
+Checar: https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:
+```
+<br />
+
