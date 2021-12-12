@@ -15,48 +15,48 @@ resource "aws_instance" "develop" {
     instance_type = "t2.micro"
     key_name = "terraformpem-aws"
     tags = {
-        Name = "dev${count.index}"
+        Name = "develop${count.index}"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
 }
 
-resource "aws_instance" "dev4" { 
+resource "aws_instance" "develop4" { 
     ami = "ami-083654bd07b5da81d" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws"
     tags = {
-        Name = "dev4"
+        Name = "develop4"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
     depends_on = [aws_s3_bucket.dev4]
 }
 
-resource "aws_instance" "dev5" { 
+resource "aws_instance" "develop5" { 
     ami = "ami-083654bd07b5da81d" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws"
     tags = {
-        Name = "dev5"
+        Name = "develop5"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
 }
 
-resource "aws_instance" "dev6" {
+resource "aws_instance" "develop6" {
     provider = "aws.us-east-2"
     ami = "ami-0629230e074c580f2"
     instance_type = "t2.micro"
     key_name = "terraformpem-aws-us-east-2"
     tags = {
-        Name = "dev6"
+        Name = "develop6"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
 }
 
-resource "aws_s3_bucket" "dev4" {
-    bucket = "kerberlabs-dev4"
+resource "aws_s3_bucket" "develop4" {
+    bucket = "kerberlabs-develop4"
     acl = "private"
 
     tags = {
-        Name = "kerberlabs-dev4"
+        Name = "kerberlabs-develop4"
     }
 }

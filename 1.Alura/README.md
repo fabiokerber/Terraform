@@ -119,23 +119,23 @@ vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
 *https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket*
 *https://s3.console.aws.amazon.com/s3/home?region=us-east-1#*
 ```
-resource "aws_instance" "dev4" { 
+resource "aws_instance" "develop4" { 
     ami = "ami-083654bd07b5da81d" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws"
     tags = {
-        Name = "dev4"
+        Name = "develop4"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
-    depends_on = [aws_s3_bucket.dev4] (Vínculo conforme bucket s3 abaixo. Primeiro cria o bucket primeiro e depois a instancia dev4)
+    depends_on = [aws_s3_bucket.develop4] (Vínculo conforme bucket s3 abaixo. Primeiro cria o bucket primeiro e depois a instancia develop4)
 }
 
-resource "aws_s3_bucket" "dev4" {
-    bucket = "kerberlabs-dev4"
+resource "aws_s3_bucket" "develop4" {
+    bucket = "kerberlabs-develop4"
     acl = "private" (Privado sem acesso publico)
 
     tags = {
-        Name = "kerberlabs-dev4"
+        Name = "kerberlabs-develop4"
     }
 }
 ```
@@ -170,18 +170,18 @@ resource "aws_security_group" "acesso-ssh" {
 Adicionar a main.tf
 ---
 provider "aws" {
-    alias = "us-east-2"
+    alias = "us-east-2" (Boa prática sempre ter o alias)
     version = "~> 3.0" 
     region = "us-east-2"
 }
 
-resource "aws_instance" "dev6" { 
+resource "aws_instance" "develop6" { 
     provider = "aws.us-east-2"
     ami = "ami-0629230e074c580f2" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws-us-east-2"
     tags = {
-        Name = "dev6"
+        Name = "develop6"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
 }
