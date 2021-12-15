@@ -213,3 +213,192 @@ resource "aws_security_group" "acesso-ssh-us-east-2" {
 > D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura plan
 ```
 <br />
+
+**Recursos de Banco DynamoDB**
+*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table*
+```
+resource "aws_instance" "develop6" {
+    provider = aws.us-east-2
+    ami = "ami-002068ed284fb165b"
+    instance_type = "t2.micro"
+    key_name = "terraformpem-aws-us-east-2"
+    tags = {
+        Name = "develop6"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
+    depends_on = [aws_dynamodb_table.dynamodb-homologacao] # É CRIADA APÓS A INICIALIZAÇÃO DA TABELA EM DYNAMODB
+}
+
+resource "aws_dynamodb_table" "dynamodb-homologacao" {
+    provider       = aws.us-east-2
+    name           = "GameScores"
+    billing_mode   = "PAY_PER_REQUEST" # https://jun711.github.io/aws/aws-ddb-pay-per-request-billing-mode-and-on-demand-capacity-mode/
+    hash_key       = "UserId"
+    range_key      = "GameTitle"
+
+    attribute {
+        name = "UserId"
+        type = "S"
+    }
+
+    attribute {
+        name = "GameTitle"
+        type = "S"
+    }
+}
+```
+<br />
+
+**Trabalhando com variáveis tipo MAPA**
+```
+!!! Criar arquivo diretorio raiz/vars.tf # VARIAVÉIS TIPO MAPA (JSON CHAVE + VALOR), TIPO LISTA (ARRAY), ETC
+
+Adicionar em vars.tf
+---
+variable "amis" {
+    type        = "map"
+    
+    default     = {
+        "us-east-1" = "ami-083654bd07b5da81d"
+        "us-east-2" = "ami-002068ed284fb165b"
+    }
+    description = "description"
+}
+---
+
+Alterar em main.tf
+---
+resource "aws_instance" "develop5" {
+    ami = var.amis["us-east-1"]
+    instance_type = "t2.micro"
+    key_name = "terraformpem-aws-us-east-1"
+    tags = {
+        Name = "develop5"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-1.id}"]
+}
+
+resource "aws_instance" "develop6" {
+    provider = aws.us-east-2
+    ami = var.amis["us-east-2"]
+    instance_type = "t2.micro"
+    key_name = "terraformpem-aws-us-east-2"
+    tags = {
+        Name = "develop6"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
+    depends_on = [aws_dynamodb_table.dynamodb-homologacao]
+}
+---
+```
+<br />
+
+**Trabalhando com variáveis tipo LISTA**
+```
+Adicionar em vars.tf
+---
+variable "cdirs_acesso_remoto" {
+    type        = list
+    default     = ["0.0.0.0","0.0.0.0"] # ENDEREÇOS PERMITIDOS PARA CONEXÃO EXTERNA ÀS INSTÂNCIAS
+}
+---
+
+Adicionar a security-group.tf
+---
+resource "aws_security_group" "acesso-ssh-us-east-1" {
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = var.cdirs_acesso_remoto # VARIÁVEL
+    }
+    tags = {
+        Name = "ssh-us-east-1"
+    }
+}
+
+resource "aws_security_group" "acesso-ssh-us-east-2" {
+    provider = aws.us-east-2
+    ingress {
+        from_port = 22
+        to_port   = 22
+        protocol  = "tcp"
+        cidr_blocks = var.cdirs_acesso_remoto # VARIÁVEL
+    }
+    tags = {
+        Name = "ssh-us-east-2"
+    }
+}
+---
+```
+<br />
+
+**Trabalhando com variáveis simples**
+```
+Adicionar em var.tf
+---
+variable instance_type {
+    default = "t2.micro"
+}
+---
+
+Adicionar a main.tf
+---
+resource "aws_instance" "develop6" {
+    provider = aws.us-east-2
+    ami = var.amis["us-east-2"]
+    instance_type = var.instance_type # VARIÁVEL
+    key_name = "terraformpem-aws-us-east-2"
+    tags = {
+        Name = "develop6"
+    }
+    vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
+    depends_on = [aws_dynamodb_table.dynamodb-homologacao]
+}
+---
+```
+<br />
+
+**Removendo recursos**
+```
+Para destruir a instacia develop3, por exemplo:
+
+D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura destroy -target aws_instance.develop3
+
+Irá destruir primeiro a instancia que esta atrelada a este bucket, e depois o proprio bucket:
+
+D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura destroy -target aws_s3_bucket.develop4
+```
+<br />
+
+**Deletando todo os recursos criados com o main.tf**
+*CUIDAAAAADOOOOO!!!!*
+```
+D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura destroy
+```
+<br />
+
+**Trabalhando com Outputs**
+```
+Criar arquivo em raiz/outputs.tf
+---
+output "Public_IPv4_DNS-develop0" {
+    value = "${aws_instance.develop[0].public_dns}"
+    description = "Public IP"
+}
+
+output "Private_IPv4-develop0" {
+    value = "${aws_instance.develop[0].private_ip}"
+    description = "Private IP"
+}
+
+output "Public_IPv4-develop5" {
+    value = "${aws_instance.develop5.public_ip}"
+}
+---
+
+D:\terraform\terraform.exe -chdir=D:\git_projects\Terraform\1.Alura refresh
+
+PS: Irá exibir o output após a criação do ambiente com o apply
+```
+<br />

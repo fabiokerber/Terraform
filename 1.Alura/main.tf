@@ -27,7 +27,7 @@ resource "aws_instance" "develop" {
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-1.id}"]
 }
 
-resource "aws_instance" "develop4" { 
+resource "aws_instance" "develop4" {
     ami = "ami-083654bd07b5da81d" 
     instance_type = "t2.micro"
     key_name = "terraformpem-aws-us-east-1"
@@ -38,8 +38,8 @@ resource "aws_instance" "develop4" {
     depends_on = [aws_s3_bucket.develop4]
 }
 
-resource "aws_instance" "develop5" { 
-    ami = "ami-083654bd07b5da81d" 
+resource "aws_instance" "develop5" {
+    ami = var.amis["us-east-1"]
     instance_type = "t2.micro"
     key_name = "terraformpem-aws-us-east-1"
     tags = {
@@ -50,13 +50,14 @@ resource "aws_instance" "develop5" {
 
 resource "aws_instance" "develop6" {
     provider = aws.us-east-2
-    ami = "ami-002068ed284fb165b"
-    instance_type = "t2.micro"
+    ami = var.amis["us-east-2"]
+    instance_type = var.instance_type
     key_name = "terraformpem-aws-us-east-2"
     tags = {
         Name = "develop6"
     }
     vpc_security_group_ids = ["${aws_security_group.acesso-ssh-us-east-2.id}"]
+    depends_on = [aws_dynamodb_table.dynamodb-homologacao]
 }
 
 resource "aws_s3_bucket" "develop4" {
@@ -65,5 +66,23 @@ resource "aws_s3_bucket" "develop4" {
 
     tags = {
         Name = "kerberlabs-develop4"
+    }
+}
+
+resource "aws_dynamodb_table" "dynamodb-homologacao" {
+    provider       = aws.us-east-2
+    name           = "GameScores"
+    billing_mode   = "PAY_PER_REQUEST"
+    hash_key       = "UserId"
+    range_key      = "GameTitle"
+
+    attribute {
+        name = "UserId"
+        type = "S"
+    }
+
+    attribute {
+        name = "GameTitle"
+        type = "S"
     }
 }
