@@ -19,31 +19,38 @@
 
 **Configuração Inicial**
 ```
+terraform {
+    required_providers {
+        aws = {
+            source  = "hashicorp/aws"
+            version = "~> 3.0" #CHECAR VERSÃO EM https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+        }
+    }
+}
+
 provider "aws" {
-    version = "~> 3.0" #CHECAR VERSÃO EM https://registry.terraform.io/providers/hashicorp/aws/latest/docs
     region = "us-east-1"
+}
+
+provider "aws" {
+    alias = "us-east-2"
+    region = "us-east-2"
 }
 
 resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
     ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO us-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
-    key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
+    key_name = "terraformpem-aws-us-east-1" #CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
 }
-
 ```
 <br />
 
 **Deploy**
 ```
-provider "aws" {
-    version = "~> 3.0" #CHECAR VERSÃO EM https://registry.terraform.io/providers/hashicorp/aws/latest/docs
-    region = "us-east-1"
-}
-
 resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
     ami = "ami-083654bd07b5da81d" #IMPORTANTE PEGAR O AMI DA REGIÃO EM QUESTÃO us-east-1 > https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:
     instance_type = "t2.micro" #FREE TIER
-    key_name = "terraform-aws"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
+    key_name = "terraformpem-aws-us-east-1"#CADA REGIAO DA AWS DEVE TER UMA CHAVE DIFERENTE
     tags = {
         Name = "dev${count.index}" #DAR NOME AOS RECURSOS QUE ESTA SUBINDO. NESTE CASO FICARA: dev1, dev2, dev3
     }
@@ -62,7 +69,7 @@ resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
 ```
 !!! STOP Instacias
 
-resource "aws_security_group" "acesso-ssh" {
+resource "aws_security_group" "acesso-ssh-us-east-1" {
     ingress {
         from_port = 22
         to_port   = 22
@@ -71,7 +78,7 @@ resource "aws_security_group" "acesso-ssh" {
     }
 
     tags = {
-        Name = "ssh"
+        Name = "acesso-ssh-us-east-1"
     }
 }
 

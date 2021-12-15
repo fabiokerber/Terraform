@@ -26,7 +26,7 @@ Adicionar chave ssh publica padrão que pode ser usada para todas as regiões.<b
 &nbsp;&nbsp;&nbsp;&nbsp;https://sa-east-1.console.aws.amazon.com/ec2/v2/home?region=sa-east-1#KeyPairs:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;name: terraform-aws<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Import key.pub
-!!! Melhor criar chave pem direto no portal. Mais seguro e efetivo.
+!!! Melhor criar chave pem direto no portal, uma por região. Mais seguro e efetivo.
 
 |Tool    |Link|
 |-------------|-----------|

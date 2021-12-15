@@ -1,4 +1,4 @@
-resource "aws_security_group" "acesso-ssh" {
+resource "aws_security_group" "acesso-ssh-us-east-1" {
     ingress {
         from_port = 22
         to_port   = 22
@@ -6,12 +6,12 @@ resource "aws_security_group" "acesso-ssh" {
         cidr_blocks = ["0.0.0.0/0"]
     }
     tags = {
-        Name = "ssh"
+        Name = "ssh-us-east-1"
     }
 }
 
 resource "aws_security_group" "acesso-ssh-us-east-2" {
-    provider = "aws.us-east-2"
+    provider = aws.us-east-2
     ingress {
         from_port = 22
         to_port   = 22
