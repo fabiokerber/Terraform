@@ -1,6 +1,6 @@
 # Terraform
 
-|Training     |Tools|
+|Folder     |Tools|
 |-------------|-----------|
 |`1.Alura`| Terraform
 
