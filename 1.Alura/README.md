@@ -3,8 +3,8 @@
 ### Terraform
 <br />
 
-**Anotações**
-    * VPC SÃO REGRAS DE TRÁFEGO ENTRE AS INSTÂNCIAS
+**Anotações**<br>
+* VPC SÃO REGRAS DE TRÁFEGO ENTRE AS INSTÂNCIAS
 <br />
 
 **Início**
@@ -90,7 +90,7 @@ resource "aws_security_group" "acesso-ssh-us-east-1" {
 ```
 <br />
 
-**Apply Security Groups**
+**Apply Security Groups**<br>
 *https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#SecurityGroups:*
 ```
 !!! Buscar o ID no link acima
