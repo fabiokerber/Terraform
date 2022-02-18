@@ -171,7 +171,7 @@ resource "aws_security_group" "acesso-ssh" {
 ```
 <br />
 
-**Recursos em nova região**
+**Recursos em nova região**<br>
 *https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#LaunchInstanceWizard:*
 ```
 Adicionar a main.tf
