@@ -64,7 +64,7 @@ resource "aws_instance" "develop" { #INSTANCIA PARA AMBIENTE DEV
 ```
 <br />
 
-**Security Groups (bloquear acesso entre elas mas permitir acesso externo via ssh)**
+**Security Groups (bloquear acesso entre elas mas permitir acesso externo via ssh)**<br>
 *https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/default_security_group*
 ```
 !!! STOP Instacias
@@ -122,7 +122,7 @@ vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
 ```
 <br />
 
-**Criação do bucket S3 + Vínculo de recurso**
+**Criação do bucket S3 + Vínculo de recurso**<br>
 *https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket*
 *https://s3.console.aws.amazon.com/s3/home?region=us-east-1#*
 ```
@@ -214,7 +214,7 @@ resource "aws_security_group" "acesso-ssh-us-east-2" {
 ```
 <br />
 
-**Recursos de Banco DynamoDB**
+**Recursos de Banco DynamoDB**<br>
 *https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table*
 ```
 resource "aws_instance" "develop6" {
