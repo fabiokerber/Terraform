@@ -123,7 +123,7 @@ vpc_security_group_ids = ["${aws_security_group.acesso-ssh.id}"]
 <br />
 
 **Criação do bucket S3 + Vínculo de recurso**<br>
-*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket*
+*https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket*<br>
 *https://s3.console.aws.amazon.com/s3/home?region=us-east-1#*
 ```
 resource "aws_instance" "develop4" { 
