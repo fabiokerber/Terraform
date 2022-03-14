@@ -1,10 +1,6 @@
 # Terraform
 
-|Folder     |Tools|
-|-------------|-----------|
-|`1.Alura`| Terraform
-
-Pré requisito:
+Pré requisito *1.Alura*:
 
 Criar conta de usuário AWS<br>
 &nbsp;&nbsp;&nbsp;&nbsp;IAM > Users > Add User > terraform-aws<br>
