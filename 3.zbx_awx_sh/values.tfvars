@@ -13,11 +13,11 @@ address_prefixes              = ["10.0.2.0/24"]
 vnet_name                     = "vnet-br-sh"
 subnet_name                   = "subnet-br-sh"
 vnet_resource_group_name      = "vnet-rg-br-sh"
-public_ip_name                = "vm-public-ip-awx-ubuntu"
+public_ip_name                = "vm-public-ip-awx-ubuntu-br-sh"
 allocation_method             = "Dynamic"
 security_group_name           = "sg-br-sh"
-network_interface_name        = "interface-vm-awx-ubuntu"
-nic_configuration_name        = "vm-linux-nic-configuration-awx-ubuntu"
+network_interface_name        = "vm-interface-awx-ubuntu-br-sh"
+nic_configuration_name        = "vm-nic-configuration-awx-ubuntu-br-sh"
 private_ip_address_allocation = "Dynamic"
 
 # Virtual machine
