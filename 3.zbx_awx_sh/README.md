@@ -57,7 +57,7 @@ Obs: Interessante criar:<br>
 
 # Backup.<br>
 
-Criar Virtual Network.<br>
+Criar/Editar Virtual Network.<br>
 ```
 az network vnet create --name tu-vnet --resource-group rg-br-tu-awx-redhat --subnet-name AwxSubnet
 az network vnet create --name tu-vnet --resource-group rg-br-tu-awx-redhat --address-prefixes 10.0.0.0/16
