@@ -82,12 +82,6 @@ Obs:
 1. Necessário instalar o graphviz localmente (https://graphviz.org/download/).
 2. Navegar até a pasta do projeto
 
-Obs: Interessante criar:<br>
-1. Resource Group
-2. Storage Account
-3. Container
-4. backend.tf with *SA-key*
-
 
 # Backup.<br>
 
