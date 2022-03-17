@@ -86,7 +86,7 @@ resource "azurerm_subnet_network_security_group_association" "ng_association_sub
 }
 
 # Virtual Machine
-resource "azurerm_linux_virtual_machine" "awxubuntu" {
+resource "azurerm_linux_virtual_machine" "awx" {
   name                            = var.vm_name
   size                            = var.vm_size
   resource_group_name             = var.vm_resource_name
@@ -108,51 +108,50 @@ resource "azurerm_linux_virtual_machine" "awxubuntu" {
     sku       = var.vm_image_sku
     version   = var.vm_image_version
   }
-
   depends_on = [azurerm_network_interface.nic]
 }
 
 # Storage Account
-resource "azurerm_storage_account" "awxubuntu" {
+resource "azurerm_storage_account" "awx" {
   name                     = var.sa_name
   resource_group_name      = var.vm_resource_name
   location                 = var.location
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
+  allow_blob_public_access = var.allow_blob_public_access
+  depends_on               = [azurerm_resource_group.resource-group]
 }
 
-resource "azurerm_storage_container" "awxubuntu" {
+resource "azurerm_storage_container" "awx" {
   name                  = var.sc_name
   storage_account_name  = var.sa_name
   container_access_type = var.container_access_type
-
-  depends_on = [azurerm_storage_account.awxubuntu]
+  depends_on            = [azurerm_storage_account.awx]
 }
 
-resource "azurerm_storage_blob" "awxubuntu" {
-  name                   = "test.sh"
+resource "azurerm_storage_blob" "awx" {
+  name                   = var.sb_name
   storage_account_name   = var.sa_name
   storage_container_name = var.sc_name
   type                   = "Block"
-  source                 = "script/test.sh"
-
-  depends_on = [azurerm_storage_container.awxubuntu]
+  source                 = "script/awx.sh"
+  depends_on             = [azurerm_storage_container.awx]
 }
 
 # Post-Install
-resource "azurerm_virtual_machine_extension" "awxubuntu" {
+resource "azurerm_virtual_machine_extension" "awx" {
   name                 = var.vm_name
-  virtual_machine_id   = azurerm_linux_virtual_machine.awxubuntu.id
+  virtual_machine_id   = azurerm_linux_virtual_machine.awx.id
   publisher            = "Microsoft.Azure.Extensions"
   type                 = "CustomScript"
   type_handler_version = "2.0"
 
-    settings = <<SETTINGS
+  settings = <<SETTINGS
     {
-        "fileUris":["https://saawx.blob.core.windows.net/scawx/test.sh"],
-        "commandToExecute": "/bin/bash test.sh"
+        "fileUris": ["https://saawx.blob.core.windows.net/scawx/awx.sh"],
+        "commandToExecute": "sh awx.sh"
     }
 SETTINGS
 
-  depends_on = [azurerm_storage_blob.awxubuntu]
+  depends_on = [azurerm_storage_blob.awx]
 }

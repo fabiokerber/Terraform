@@ -9,11 +9,11 @@ output "vm_resource-group" {
 }
 
 output "computer_name" {
-  value       = azurerm_linux_virtual_machine.awxubuntu.computer_name
+  value       = azurerm_linux_virtual_machine.awx.computer_name
   description = "VM Computer Name"
 }
 
 output "public_ip_address" {
-  value       = azurerm_linux_virtual_machine.awxubuntu.public_ip_address
+  value       = azurerm_linux_virtual_machine.awx.public_ip_address
   description = "VM Public IP"
 }

@@ -153,6 +153,11 @@ variable "sa_name" {
   type        = string
 }
 
+variable "allow_blob_public_access" {
+  description = "allow_blob_public_access"
+  type        = bool
+}
+
 variable "account_tier" {
   description = "account_tier"
   type        = string
@@ -170,5 +175,10 @@ variable "container_access_type" {
 
 variable "sc_name" {
   description = "sc_name"
+  type        = string
+}
+
+variable "sb_name" {
+  description = "sb_name"
   type        = string
 }
