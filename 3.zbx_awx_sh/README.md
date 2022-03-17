@@ -53,6 +53,18 @@ terraform plan -var-file="values.tfvars"
 terraform apply -var-file="values.tfvars" -auto-approve
 ```
 
+Anotar a senha (admin_password=xxxxxxxx).<br>
+```
+az vm run-command invoke -g rg-vm-awx-br-sh -n vm-awx-br-sh --command-id RunShellScript --scripts "cat /tmp/awx-17.1.0/installer/inventory | grep admin_password"
+```
+
+Acessar o AWX.<br>
+admin<br>
+"admin_password"<br>
+```
+http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
+```
+
 Conectar na VM (Git Bash).<br>
 ```
 cp ssh-key/key-vm-awx-ubuntu-br-sh.pem ~/.ssh/
