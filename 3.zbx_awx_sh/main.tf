@@ -20,7 +20,7 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = var.address_space
   location            = var.location
   resource_group_name = var.resource_name
-  depends_on = [ azurerm_resource_group.resource-group ]
+  depends_on          = [azurerm_resource_group.resource-group]
 }
 
 resource "azurerm_subnet" "subnet" {
@@ -28,7 +28,7 @@ resource "azurerm_subnet" "subnet" {
   resource_group_name  = var.resource_name
   virtual_network_name = var.vnet_name
   address_prefixes     = var.address_prefixes
-  depends_on = [ azurerm_virtual_network.vnet ]
+  depends_on           = [azurerm_virtual_network.vnet]
 }
 
 resource "azurerm_public_ip" "public_ip" {
@@ -38,7 +38,7 @@ resource "azurerm_public_ip" "public_ip" {
   allocation_method       = var.allocation_method
   idle_timeout_in_minutes = var.idle_timeout_in_minutes
   domain_name_label       = var.domain_name_label
-  depends_on = [ azurerm_resource_group.vm_resource-group ]
+  depends_on              = [azurerm_resource_group.vm_resource-group]
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -52,7 +52,7 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = var.private_ip_address_allocation
     public_ip_address_id          = azurerm_public_ip.public_ip.id
   }
-  depends_on = [ azurerm_resource_group.vm_resource-group ]
+  depends_on = [azurerm_resource_group.vm_resource-group]
 }
 
 # Security
@@ -60,7 +60,7 @@ resource "azurerm_network_security_group" "nsg" {
   name                = var.security_group_name
   location            = var.location
   resource_group_name = var.resource_name
-  depends_on = [ azurerm_resource_group.resource-group ]
+  depends_on          = [azurerm_resource_group.resource-group]
 }
 
 resource "azurerm_network_security_rule" "inbound_rules" {
@@ -76,13 +76,13 @@ resource "azurerm_network_security_rule" "inbound_rules" {
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
   network_security_group_name = var.security_group_name
-  depends_on = [ azurerm_network_security_group.nsg ]
+  depends_on                  = [azurerm_network_security_group.nsg]
 }
 
 resource "azurerm_subnet_network_security_group_association" "ng_association_subnet-br-sh" {
   subnet_id                 = azurerm_subnet.subnet.id
   network_security_group_id = azurerm_network_security_group.nsg.id
-  depends_on = [ azurerm_subnet.subnet ]
+  depends_on                = [azurerm_subnet.subnet]
 }
 
 # Virtual Machine
@@ -109,5 +109,50 @@ resource "azurerm_linux_virtual_machine" "awxubuntu" {
     version   = var.vm_image_version
   }
 
-  depends_on = [ azurerm_network_interface.nic ]
+  depends_on = [azurerm_network_interface.nic]
+}
+
+# Storage Account
+resource "azurerm_storage_account" "awxubuntu" {
+  name                     = var.sa_name
+  resource_group_name      = var.vm_resource_name
+  location                 = var.location
+  account_tier             = var.account_tier
+  account_replication_type = var.account_replication_type
+}
+
+resource "azurerm_storage_container" "awxubuntu" {
+  name                  = var.sc_name
+  storage_account_name  = var.sa_name
+  container_access_type = var.container_access_type
+
+  depends_on = [azurerm_storage_account.awxubuntu]
+}
+
+resource "azurerm_storage_blob" "awxubuntu" {
+  name                   = "test.sh"
+  storage_account_name   = var.sa_name
+  storage_container_name = var.sc_name
+  type                   = "Block"
+  source                 = "script/test.sh"
+
+  depends_on = [azurerm_storage_container.awxubuntu]
+}
+
+# Post-Install
+resource "azurerm_virtual_machine_extension" "awxubuntu" {
+  name                 = var.vm_name
+  virtual_machine_id   = azurerm_linux_virtual_machine.awxubuntu.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+    settings = <<SETTINGS
+    {
+        "fileUris":["https://saawx.blob.core.windows.net/scawx/test.sh"],
+        "commandToExecute": "/bin/bash test.sh"
+    }
+SETTINGS
+
+  depends_on = [azurerm_storage_blob.awxubuntu]
 }

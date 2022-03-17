@@ -146,3 +146,29 @@ variable "vm_disable_password_authentication" {
   description = "vm_disable_password_authentication"
   type        = bool
 }
+
+# Storage Account
+variable "sa_name" {
+  description = "sa_name"
+  type        = string
+}
+
+variable "account_tier" {
+  description = "account_tier"
+  type        = string
+}
+
+variable "account_replication_type" {
+  description = "account_replication_type"
+  type        = string
+}
+
+variable "container_access_type" {
+  description = "container_access_type"
+  type        = string
+}
+
+variable "sc_name" {
+  description = "sc_name"
+  type        = string
+}

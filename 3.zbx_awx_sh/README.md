@@ -1,4 +1,18 @@
-Criando o *resource group*.<br>
+Criando o *Resource Group* para armazenamento das keys via CLI.<br>
+```
+az group create -l brazilsouth -n rg-br-ssh-keys
+```
+
+Criar par de chaves Azure.<br>
+```
+https://docs.microsoft.com/pt-br/azure/virtual-machines/ssh-keys-portal
+
+Create an SSH key
+Resource group: rg-br-ssh-keys
+Key pair name: key-vm-awx-ubuntu-br-sh
+```
+
+Criando o *Resource Group* via CLI.<br>
 ```
 az group create -l brazilsouth -n rg-br-tfstate
 ```
@@ -13,7 +27,7 @@ Criando *Container* via CLI.<br>
 az storage container create --name tfstatesh-files --account-name tfstatesh
 ```
 
-Execute o comando abaixo e anote os dados da *key1*.<br>
+Coletar os dados da *key1* via CLI..<br>
 ```
 az storage account keys list --account-name tfstatesh --resource-group rg-br-tfstate
 ```
@@ -37,6 +51,14 @@ terraform fmt
 terraform validate
 terraform plan -var-file="values.tfvars"
 terraform apply -var-file="values.tfvars" -auto-approve
+```
+
+Conectar na VM (Git Bash).<br>
+```
+cp ssh-key/key-vm-awx-ubuntu-br-sh.pem ~/.ssh/
+chmod 400 ~/.ssh/key-vm-awx-ubuntu-br-sh.pem
+ssh -i ~/.ssh/key-vm-awx-ubuntu-br-sh.pem <vm_admin_username>@<public_ip_address>
+Ex: ssh -i ~/.ssh/key-vm-awx-ubuntu-br-sh.pem kerberos@20.226.6.113
 ```
 
 Criando gráfico dos recursos existentes no Azure

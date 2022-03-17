@@ -22,7 +22,7 @@ private_ip_address_allocation = "Dynamic"
 
 # Virtual machine
 idle_timeout_in_minutes            = 30
-domain_name_label                  = "labawx"
+domain_name_label                  = "vm-awx-ubuntu-br-sh"
 vm_name                            = "vm-awx-ubuntu-br-sh"
 vm_size                            = "Standard_B2s"
 vm_disk_caching                    = "ReadWrite"
@@ -36,5 +36,12 @@ vm_admin_username                  = "kerberos"
 vm_admin_password                  = "123@mudar"
 vm_disable_password_authentication = false
 
+# Storage Account
+sa_name                  = "saawx"
+account_tier             = "Standard"
+account_replication_type = "LRS"
+container_access_type    = "private"
+sc_name                  = "scawx"
+
 # Security
-inbound_rules = { 101 = 80, 102 = 443 }
+inbound_rules = { 101 = 80, 102 = 443, 103 = 22 }
