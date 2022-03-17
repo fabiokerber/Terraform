@@ -85,6 +85,12 @@ Obs:
 
 # Backup.<br>
 
+Gerenciar a VM.<br>
+```
+az vm start --resource-group rg-vm-awx-br-sh --name vm-awx-br-sh
+az vm stop --resource-group rg-vm-awx-br-sh --name vm-awx-br-sh
+```
+
 Criar/Editar Virtual Network.<br>
 ```
 az network vnet create --name tu-vnet --resource-group rg-br-tu-awx-redhat --subnet-name AwxSubnet
