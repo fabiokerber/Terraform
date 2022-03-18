@@ -14,4 +14,4 @@ mkdir /tmp/awx-operator
 git clone https://github.com/ansible/awx-operator.git /tmp/awx-operator
 export NAMESPACE=default
 cd /tmp/awx-operator/ && git checkout 0.18.0 && make deploy
-curl -o /tmp/awx.yml https://github.com/fabiokerber/Terraform/blob/main/4.zbx_awx_sh/files/awx.yml
+curl -o /tmp/awx.yml https://raw.githubusercontent.com/fabiokerber/Terraform/main/4.zbx_awx_sh/files/awx.yml
