@@ -1,15 +1,17 @@
+# ZBX_AWX_SH UBUNTU 18.04-LTS
+
 Criando o *Resource Group* para armazenamento das keys via CLI.<br>
 ```
-az group create -l brazilsouth -n rg-br-ssh-keys
+az group create -l brazilsouth -n rg-ssh-keys-br-sh
 ```
 
 Criar par de chaves Azure.<br>
 ```
 https://docs.microsoft.com/pt-br/azure/virtual-machines/ssh-keys-portal
 
-Create an SSH key
-Resource group: rg-br-ssh-keys
-Key pair name: key-vm-awx-ubuntu-br-sh
+Create an SSH key (Resource SSH keys)
+Resource group: rg-ssh-keys-br-sh
+Key pair name: key-vm-ssh-br-sh
 ```
 
 Criando o *Resource Group* via CLI.<br>
@@ -67,10 +69,10 @@ http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
 
 Conectar na VM (Git Bash).<br>
 ```
-cp ssh-key/key-vm-awx-ubuntu-br-sh.pem ~/.ssh/
-chmod 400 ~/.ssh/key-vm-awx-ubuntu-br-sh.pem
-ssh -i ~/.ssh/key-vm-awx-ubuntu-br-sh.pem <vm_admin_username>@<public_ip_address>
-Ex: ssh -i ~/.ssh/key-vm-awx-ubuntu-br-sh.pem kerberos@20.226.6.113
+cp ssh-key/key-vm-ssh-br-sh.pem ~/.ssh/
+chmod 400 ~/.ssh/key-vm-ssh-br-sh.pem
+ssh -i ~/.ssh/key-vm-ssh-br-sh.pem <vm_admin_username>@<public_ip_address>
+Ex: ssh -i ~/.ssh/key-vm-ssh-br-sh.pem kerberos@20.226.6.113
 ```
 
 Criando gráfico dos recursos existentes no Azure
@@ -139,4 +141,5 @@ terraform init -migrate-state
 az vm image list --output table
 az vm image list --offer CentOS --all --output table
 az vm image list --location brazilsouth --publisher Canonical --offer UbuntuServer --all --output table
+az vm image list --location brazilsouth --publisher RedHat --offer RHEL --all --output table
 ```
