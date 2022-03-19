@@ -8,8 +8,8 @@ resource_name = "rg-br-sh"
 vm_resource_name = "rg-vm-awx-br-sh"
 
 # Network
-address_space                 = ["10.0.0.0/16", "192.168.0.0/16"]
-address_prefixes              = ["10.0.2.0/24", "192.168.10.0/24"]
+address_space                 = ["10.0.0.0/16"]
+address_prefixes              = ["10.0.2.0/24"]
 vnet_name                     = "vnet-br-sh"
 subnet_name                   = "subnet-br-sh"
 vnet_resource_group_name      = "vnet-rg-br-sh"

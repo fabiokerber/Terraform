@@ -55,14 +55,9 @@ terraform plan -var-file="values.tfvars"
 terraform apply -var-file="values.tfvars" -auto-approve
 ```
 
-Anotar a senha (admin_password=xxxxxxxx).<br>
-```
-az vm run-command invoke -g rg-vm-awx-br-sh -n vm-awx-br-sh --command-id RunShellScript --scripts "cat /tmp/awx-17.1.0/installer/inventory | grep admin_password"
-```
-
 Acessar o AWX.<br>
 admin<br>
-"admin_password"<br>
+123@mudar<br>
 ```
 http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
 ```
@@ -142,4 +137,13 @@ az vm image list --output table
 az vm image list --offer CentOS --all --output table
 az vm image list --location brazilsouth --publisher Canonical --offer UbuntuServer --all --output table
 az vm image list --location brazilsouth --publisher RedHat --offer RHEL --all --output table
+```
+
+Firewall
+```
+sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=8472/udp --permanent
+sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
+sudo firewall-cmd --zone=public --add-port=2379-2380/tcp --permanent
+sudo firewall-cmd --reload
 ```
