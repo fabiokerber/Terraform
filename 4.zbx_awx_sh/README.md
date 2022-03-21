@@ -62,12 +62,15 @@ admin<br>
 http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
 ```
 
-Conectar na VM (Git Bash).<br>
+Conectar na VM (Git Bash) e acompanhar instalação.<br>
 ```
 cp ssh-key/key-vm-ssh-br-sh.pem ~/.ssh/
 chmod 400 ~/.ssh/key-vm-ssh-br-sh.pem
 ssh -i ~/.ssh/key-vm-ssh-br-sh.pem <vm_admin_username>@<public_ip_address>
 Ex: ssh -i ~/.ssh/key-vm-ssh-br-sh.pem kerberos@20.226.6.113
+
+kubectl -n awx logs -f deployments/awx-operator-controller-manager -c awx-manager
+kubectl -n awx get awx,all,ingress,secrets
 ```
 
 Criando gráfico dos recursos existentes no Azure
