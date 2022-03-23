@@ -116,21 +116,3 @@ resource "azurerm_linux_virtual_machine" "awx" {
   source_image_id = var.image_id
   depends_on      = [azurerm_network_interface.nic]
 }
-
-# Storage Account
-resource "azurerm_storage_account" "awx" {
-  name                     = var.sa_name
-  resource_group_name      = var.vm_resource_name
-  location                 = var.location
-  account_tier             = var.account_tier
-  account_replication_type = var.account_replication_type
-  allow_blob_public_access = var.allow_blob_public_access
-  depends_on               = [azurerm_resource_group.resource-group]
-}
-
-resource "azurerm_storage_container" "awx" {
-  name                  = var.sc_name
-  storage_account_name  = var.sa_name
-  container_access_type = var.container_access_type
-  depends_on            = [azurerm_storage_account.awx]
-}

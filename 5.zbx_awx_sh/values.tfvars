@@ -38,14 +38,5 @@ image_rg   = "rg-img-br-sh"
 image_name = "vm-img-20220323211320-awx-br-sh"
 image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220323211320-awx-br-sh"
 
-# Storage Account
-sa_name                  = "saawx"
-allow_blob_public_access = true
-account_tier             = "Standard"
-account_replication_type = "LRS"
-container_access_type    = "container"
-sc_name                  = "scawx"
-sb_name                  = "awx.sh"
-
 # Security
 inbound_rules = { 101 = 80, 102 = 443, 103 = 22 }

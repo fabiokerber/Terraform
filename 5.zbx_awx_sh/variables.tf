@@ -147,39 +147,3 @@ variable "image_id" {
   description = "ID of the VM Custom Image"
   type        = string
 }
-
-# Storage Account
-variable "sa_name" {
-  description = "sa_name"
-  type        = string
-}
-
-variable "allow_blob_public_access" {
-  description = "allow_blob_public_access"
-  type        = bool
-}
-
-variable "account_tier" {
-  description = "account_tier"
-  type        = string
-}
-
-variable "account_replication_type" {
-  description = "account_replication_type"
-  type        = string
-}
-
-variable "container_access_type" {
-  description = "container_access_type"
-  type        = string
-}
-
-variable "sc_name" {
-  description = "sc_name"
-  type        = string
-}
-
-variable "sb_name" {
-  description = "sb_name"
-  type        = string
-}
