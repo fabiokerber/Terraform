@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo timedatectl set-timezone America/Sao_Paulo
 sudo yum update -y
 sudo yum install -y git make gcc perl-core pcre-devel wget zlib-devel
 sudo systemctl stop firewalld && sudo systemctl disable firewalld

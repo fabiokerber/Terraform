@@ -9,7 +9,7 @@ vm_resource_name = "rg-vm-awx-br-sh"
 
 # Network
 address_space                 = ["10.0.0.0/16"]
-address_prefixes              = ["10.0.2.0/24"]
+address_prefixes              = ["10.0.0.0/24"]
 vnet_name                     = "vnet-br-sh"
 subnet_name                   = "subnet-br-sh"
 vnet_resource_group_name      = "vnet-rg-br-sh"
@@ -35,8 +35,8 @@ vm_disable_password_authentication = false
 
 # Custom image
 image_rg   = "rg-img-br-sh"
-image_name = "vm-img-20220323211320-awx-br-sh"
-image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220323211320-awx-br-sh"
+image_name = "vm-img-20220324151452-awx-br-sh"
+image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220324151452-awx-br-sh"
 
 # Security
 inbound_rules = { 101 = 80, 102 = 443, 103 = 22 }
