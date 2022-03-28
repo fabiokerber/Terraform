@@ -14,6 +14,17 @@ variable "vm_resource_name" {
   type        = string
 }
 
+# Key Vault
+variable "kv_name" {
+  description = "Name of the Key Vault"
+  type        = string
+}
+
+variable "kv_rg" {
+  description = "Name of the Key Vault resource group"
+  type        = string
+}
+
 # Network
 variable "address_space" {
   description = "address_space"

@@ -7,9 +7,13 @@ resource_name = "rg-br-sh"
 # Resource Group VM
 vm_resource_name = "rg-vm-awx-br-sh"
 
+# Key Vault
+kv_name = "key-vault-br-sh"
+kv_rg   = "rg-key-vault-br-sh"
+
 # Network
-address_space                 = ["10.0.0.0/16"]
-address_prefixes              = ["10.0.0.0/24"]
+address_space                 = ["192.168.0.0/16"]
+address_prefixes              = ["192.168.10.0/24"]
 vnet_name                     = "vnet-br-sh"
 subnet_name                   = "subnet-br-sh"
 vnet_resource_group_name      = "vnet-rg-br-sh"
@@ -30,13 +34,13 @@ vm_disk_name                       = "vm-disk-awx-br-sh"
 vm_disk_storage_account_type       = "Standard_LRS"
 vm_computer_name                   = "vm-awx-br-sh"
 vm_admin_username                  = "kerberos"
-vm_admin_password                  = "123@mudar"
+vm_admin_password                  = "vm-linux-password"
 vm_disable_password_authentication = false
 
 # Custom image
 image_rg   = "rg-img-br-sh"
-image_name = "vm-img-20220324151452-awx-br-sh"
-image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220324151452-awx-br-sh"
+image_name = "vm-img-20220328154216-awx-br-sh"
+image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220328154216-awx-br-sh"
 
 # Security
 inbound_rules = { 101 = 80, 102 = 443, 103 = 22 }

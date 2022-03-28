@@ -1,5 +1,20 @@
 # Terraform
 
+## Key Vault
+Obs: coletar ID's > https://github.com/fabiokerber/Packer/tree/main/1.zbx_awx_sh<br>
+
+Criando o *Key Vault* para armazenamento de *secrets* e inserindo as chaves<br>
+```
+az group create -l brazilsouth -n rg-key-vault-br-sh
+az keyvault create --location brazilsouth --name key-vault-br-sh --resource-group rg-key-vault-br-sh
+az keyvault secret set --name arm-subscription-id --vault-name key-vault-br-sh --value "ee6222a2-c6ac-48ae-b6ad-b7fef2589b74"
+az keyvault secret set --name arm-client-id --vault-name key-vault-br-sh --value "4b9cf9e2-ba75-48a0-b56d-ba0ab00083af"
+az keyvault secret set --name arm-client-secret --vault-name key-vault-br-sh --value "4V67Q~CwjR16jokWxBD--NDHM0h1l~I5TtZ~x"
+az keyvault secret set --name arm-tenant-id --vault-name key-vault-br-sh --value "51fd35eb-5f5d-4077-b2cb-6e257ba1a75a"
+az keyvault secret set --name vm-linux-password --vault-name key-vault-br-sh --value "123@mudar" --expires '2022-04-25T10:00:00Z'
+```
+
+## Criando par de chaves SSH
 Criando o *Resource Group* para armazenamento das keys via CLI<br>
 ```
 az group create -l brazilsouth -n rg-ssh-keys-br-sh
@@ -14,6 +29,7 @@ Resource group: rg-ssh-keys-br-sh
 Key pair name: key-vm-ssh-br-sh
 ```
 
+## Preparando ambiente para Deploy
 Criando o *Resource Group* via CLI<br>
 ```
 az group create -l brazilsouth -n rg-br-tfstate

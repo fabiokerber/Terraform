@@ -103,7 +103,7 @@ resource "azurerm_linux_virtual_machine" "awx" {
   location                        = var.location
   computer_name                   = var.vm_computer_name
   admin_username                  = var.vm_admin_username
-  admin_password                  = var.vm_admin_password
+  admin_password                  = data.azurerm_key_vault_secret.local-admin-password.value
   disable_password_authentication = var.vm_disable_password_authentication
   network_interface_ids           = [azurerm_network_interface.nic.id]
 
