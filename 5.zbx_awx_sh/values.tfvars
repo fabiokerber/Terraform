@@ -33,7 +33,7 @@ vm_disk_caching                    = "ReadWrite"
 vm_disk_name                       = "vm-disk-awx-br-sh"
 vm_disk_storage_account_type       = "Standard_LRS"
 vm_computer_name                   = "vm-awx-br-sh"
-vm_admin_username                  = "kerberos"
+vm_admin_username                  = "azureuser"
 vm_admin_password                  = "vm-linux-password"
 vm_disable_password_authentication = false
 

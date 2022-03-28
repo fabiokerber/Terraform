@@ -73,7 +73,7 @@ terraform apply -var-file="values.tfvars" -auto-approve
 ```
 
 Acessar o AWX<br>
-admin<br>
+azureuser<br>
 123@mudar<br>
 ```
 http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
