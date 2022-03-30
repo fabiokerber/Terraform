@@ -7,6 +7,33 @@
 |`5.zbx_awx_sh`| Instalação AWX v20.0.1 (Packer Image) + Rhel 7.8 + Key Vault (Senha pré definida para acesso VM)
 |`6.zbx_awx_sh`| Instalação AWX v20.0.1 (Packer Image) + Rhel 7.8 + Key Vault (Senha aleatória para acesso VM)
 
+## Conteúdo
+- [Recursos](#recursos)
+
+## Recursos e requisitos
+- **Computing resources**
+  - **2 CPUs and 4 GiB RAM minimum**.
+  - It's recommended to add more CPUs and RAM (like 4 CPUs and 8 GiB RAM or more) to avoid performance issue and job scheduling issue.
+  - The files in this repository are configured to ignore resource requirements which specified by AWX Operator by default.
+- **Storage resources**
+  - At least **10 GiB for `/var/lib/rancher`** and **10 GiB for `/data`** are safe for fresh install.
+  - **Both will be grown during lifetime** and **actual consumption highly depends on your environment and your usecase**, so you should to pay attention to the consumption and add more capacity if required.
+  - `/var/lib/rancher` will be created and consumed by K3s and related data like container images and overlayfs.
+  - `/data` will be created in this guide and used to store AWX-related databases and files.
+- **Firewall**
+  - Disable Firewalld. This is `recommended by K3s`.
+
+Fonte: 
+https://github.com/kurokobo/awx-on-k3s#requirements<br>
+https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-red-hat-centos-enterprise-linux<br>
+
+## Logar no Azure
+```
+az login
+az account show
+az account set --subscription "Azure subscription 1" (verificar se está conectado na Subscription correta)
+```
+
 ## Key Vault
 Obs: coletar ID's > https://github.com/fabiokerber/Packer/tree/main/1.zbx_awx_sh<br>
 
