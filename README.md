@@ -9,8 +9,9 @@
 
 ## Conteúdo
 - [Recursos](#recursos)
+- [Logar no Azure](#logar-no-azure)
 
-## Recursos e requisitos
+## Recursos
 - **Computing resources**
   - **2 CPUs and 4 GiB RAM minimum**.
   - It's recommended to add more CPUs and RAM (like 4 CPUs and 8 GiB RAM or more) to avoid performance issue and job scheduling issue.
