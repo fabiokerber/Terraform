@@ -38,8 +38,8 @@ vm_disable_password_authentication = false
 
 # Custom image
 image_rg   = "rg-img-br-sh"
-image_name = "vm-img-20220328154216-awx-br-sh"
-image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/vm-img-20220328154216-awx-br-sh"
+image_name = "img-040420220749-vm-awx-br-sh"
+image_id   = "/subscriptions/ee6222a2-c6ac-48ae-b6ad-b7fef2589b74/resourceGroups/rg-img-br-sh/providers/Microsoft.Compute/images/img-040420220749-vm-awx-br-sh"
 
 # Security
 inbound_rules = { 101 = 80, 102 = 443, 103 = 22 }

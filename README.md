@@ -10,6 +10,10 @@
 ## Conteúdo
 - [Recursos](#recursos)
 - [Logar no Azure](#logar-no-azure)
+- [Key Vault](#key-vault)
+- [Criando par de chaves SSH](#criando-par-de-chaves-ssh)
+- [Preparando ambiente para Deploy](#preparando-ambiente-para-deploy)
+- [Backup](#backup)
 
 ## Recursos
 - **Computing resources**
@@ -24,7 +28,7 @@
 - **Firewall**
   - Disable Firewalld. This is `recommended by K3s`.
 
-Fonte: 
+Fonte:<br>
 https://github.com/kurokobo/awx-on-k3s#requirements<br>
 https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-red-hat-centos-enterprise-linux<br>
 
@@ -111,8 +115,8 @@ terraform apply -var-file="values.tfvars" -auto-approve
 ```
 
 Acessar o AWX<br>
-azureuser<br>
-123@mudar<br>
+admin<br>
+Ansible123!<br>
 ```
 http://vmawxbrsh.brazilsouth.cloudapp.azure.com/
 ```
@@ -138,7 +142,7 @@ Obs:
 2. Navegar até a pasta do projeto
 
 
-# Backup.<br>
+# Backup<br>
 
 Gerenciar a VM<br>
 ```
