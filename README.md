@@ -226,6 +226,15 @@ sudo firewall-cmd --reload
 ```
 
 # Erro Lock<br>
-
+<kbd>
+    <img src="https://github.com/fabiokerber/Terraform/blob/main/img/150420221146.png">
+</kbd>
+<br />
+<br />
+<kbd>
+    <img src="https://github.com/fabiokerber/Terraform/blob/main/img/150420221147.png">
+</kbd>
+<br />
+<br />
 Fonte:<br>
 https://stackoverflow.com/questions/62189825/terraform-error-acquiring-the-state-lock-conditionalcheckfailedexception
