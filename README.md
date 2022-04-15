@@ -35,6 +35,8 @@ https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-red-
 ## Logar no Azure
 ```
 az login
+az logout
+
 az account show
 az account set --subscription "Azure subscription 1" (verificar se está conectado na Subscription correta)
 ```
@@ -104,6 +106,7 @@ Provisionar ambiente<br>
 ```
 az image list
 terraform init
+terraform init -reconfigure
 terraform workspace new hml
 terraform workspace new prd
 terraform workspace list
@@ -112,6 +115,13 @@ terraform fmt
 terraform validate
 terraform plan -var-file="values.tfvars"
 terraform apply -var-file="values.tfvars" -auto-approve
+
+---
+terraform plan -var-file=env_variables/_tu.tfvars -out _tu.tfplan
+terraform apply _tu.tfplan -auto-aprove
+terraform destroy -var-file=env_variables/_tu.tfvars
+
+rm -rf ./terraform (erro terraform init)
 ```
 
 Acessar o AWX<br>
