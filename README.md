@@ -32,6 +32,10 @@ Fonte:<br>
 https://github.com/kurokobo/awx-on-k3s#requirements<br>
 https://rancher.com/docs/k3s/latest/en/advanced/#additional-preparation-for-red-hat-centos-enterprise-linux<br>
 
+Importância Workspace:<br>
+https://danielwertheim.se/terraform-workspaces-and-remote-state-in-azure/ 
+
+
 ## Logar no Azure
 ```
 az login
@@ -220,3 +224,8 @@ sudo firewall-cmd --zone=public --add-port=10250/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=2379-2380/tcp --permanent
 sudo firewall-cmd --reload
 ```
+
+# Erro Lock<br>
+
+Fonte:<br>
+https://stackoverflow.com/questions/62189825/terraform-error-acquiring-the-state-lock-conditionalcheckfailedexception
