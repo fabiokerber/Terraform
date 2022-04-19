@@ -40,6 +40,7 @@ https://danielwertheim.se/terraform-workspaces-and-remote-state-in-azure/
 ```
 az login
 az logout
+az account list -o table '
 
 az account show
 az account set --subscription "Azure subscription 1" (verificar se está conectado na Subscription correta)
