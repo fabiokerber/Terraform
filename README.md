@@ -217,6 +217,12 @@ az vm image list --location brazilsouth --publisher RedHat --offer RHEL --all --
 az image list
 ```
 
+Pesquisar recurso pelo ID<br>
+Obs: filtrar por subscription<br>
+```
+az resource show --ids '/subscriptions/246d81c7-a36d-422a-b2d6-3dd751b5a9ec/resourceGroups/NT_opbk-infra-rg-lab_azu-aks-tu-lab-001_brazilsouth/providers/Microsoft.Authorization/roleAssignments/39e601fa-e749-047c-a4f1-f222abff0a02'
+```
+
 Firewall
 ```
 sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
