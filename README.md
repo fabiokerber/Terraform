@@ -159,25 +159,25 @@ Obs:
 
 # Backup<br>
 
-Gerenciar a VM<br>
+*Gerenciar a VM*<br>
 ```
 az vm start --resource-group rg-vm-awx-br-sh --name vm-awx-br-sh
 az vm stop --resource-group rg-vm-awx-br-sh --name vm-awx-br-sh
 ```
 
-Criar/Editar Virtual Network<br>
+*Criar/Editar Virtual Network*<br>
 ```
 az network vnet create --name tu-vnet --resource-group rg-br-tu-awx-redhat --subnet-name AwxSubnet
 az network vnet create --name tu-vnet --resource-group rg-br-tu-awx-redhat --address-prefixes 10.0.0.0/16
 az network vnet subnet update --name tu-vnet --vnet-name tu-vnet --resource-group rg-br-tu-awx-redhat --address-prefixes 192.168.0.0/16
 ```
 
-Criar Security Group<br>
+*Criar Security Group*<br>
 ```
 az network nsg create -g rg-br-tu-awx-redhat -n sg-vm-linux-redhat
 ```
 
-Criar Rule<br>
+*Criar Rule*<br>
 Obs: Melhorar segurança portas<br>
 ```
 az network nsg rule create -g rg-br-tu-awx-redhat --nsg-name sg-vm-linux-redhat -n AllowInboundTo80 --priority 100 --source-address-prefixes '*' --source-port-ranges '*' --destination-address-prefixes '*' --destination-port-ranges 80 --access Allow --direction Inbound --protocol Tcp --description "Allow * to 80/tcp."
@@ -190,7 +190,7 @@ output "resource-group_full" {
 }
 ```
 
-Comandos de auxílio<br>
+*Comandos de auxílio*<br>
 ```
 az version
 az login
@@ -217,13 +217,23 @@ az vm image list --location brazilsouth --publisher RedHat --offer RHEL --all --
 az image list
 ```
 
-Pesquisar recurso pelo ID<br>
+*Pesquisar recurso pelo ID*<br>
 Obs: filtrar por subscription<br>
 ```
 az resource show --ids '/subscriptions/246d81c7-a36d-422a-b2d6-3dd751b5a9ec/resourceGroups/NT_opbk-infra-rg-lab_azu-aks-tu-lab-001_brazilsouth/providers/Microsoft.Authorization/roleAssignments/39e601fa-e749-047c-a4f1-f222abff0a02'
 ```
 
-Firewall
+*DEBUG*<br>
+```
+export TF_LOG=DEBUG (log na tela antes do apply)
+
+export TF_LOG=JSON
+export TF_LOG_PATH=error.json (log em arquivo antes do apply)
+
+https://www.terraform.io/internals/debugging
+```
+
+*Firewall Linux*<br>
 ```
 sudo firewall-cmd --zone=public --add-port=6443/tcp --permanent
 sudo firewall-cmd --zone=public --add-port=8472/udp --permanent
