@@ -228,7 +228,8 @@ az resource show --ids '/subscriptions/246d81c7-a36d-422a-b2d6-3dd751b5a9ec/reso
 export TF_LOG=DEBUG (log na tela antes do apply)
 
 export TF_LOG=JSON
-export TF_LOG_PATH=error.json (log em arquivo antes do apply)
+export TF_LOG_PATH=debug.json
+export TF_LOG_PATH=/tmp/debug.json (log em arquivo antes do apply)
 
 https://www.terraform.io/internals/debugging
 ```
