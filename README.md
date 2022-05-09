@@ -156,15 +156,6 @@ Obs:
 1. Necessário instalar o graphviz localmente (https://graphviz.org/download/).
 2. Navegar até a pasta do projeto
 
-# Trabalhar com Kubernetes a partir do Az Cli<br>
-```
-az login
-az account set --subscription "Subs - TU"
-az aks get-credentials --resource-group azu-rg-tu-lab --name azu-aks-tu-lab-001 --admin --overwrite-existing
-kubectl get nodes -A
-kubectl get namespaces
-```
-
 # Backup<br>
 
 *Gerenciar a VM*<br>
