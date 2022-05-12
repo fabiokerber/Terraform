@@ -22,4 +22,3 @@ module "private_endpoint" {
     azurerm.diti_identity   = azurerm.diti_identity
   }
 }
- 
