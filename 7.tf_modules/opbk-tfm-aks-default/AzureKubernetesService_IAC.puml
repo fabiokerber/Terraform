@@ -1,0 +1,98 @@
+@startuml Azure Kubernetes Service - IAC Model
+!pragma revision 1
+
+!define AzurePuml https://raw.githubusercontent.com/plantuml-stdlib/Azure-PlantUML/master/dist
+!define AzureImgs https://github.com/plantuml-stdlib/Azure-PlantUML/blob/master/dist
+!includeurl AzurePuml/AzureCommon.puml
+!includeurl AzurePuml/AzureSimplified.puml
+!includeurl AzurePuml/General/Azure.puml
+!includeurl AzurePuml/Containers/AzureKubernetesService.puml
+!includeurl AzurePuml/Compute/AzureVirtualMachineScaleSet.puml
+!includeurl AzurePuml/Containers/AzureContainerRegistry.puml
+!includeurl AzurePuml/Management/AzureResourceGroups.puml
+!includeurl AzurePuml/Management/AzureSubscription.puml
+!includeurl AzurePuml/Networking/AzureDNS.puml
+!includeurl AzurePuml/Networking/AzureLoadBalancer.puml
+!includeurl AzurePuml/Networking/AzureVirtualNetwork.puml
+
+LAYOUT_LEFT_RIGHT
+
+Azure(azureAlias, "Bradesco", "e_techn", "e_descr")
+AzureSubscription(diti_identity, "DITI Identity", "e_techn", "e_descr")
+rectangle r1 {
+    AzureResourceGroups(identitynprodvnetrg, "identitynprod-vnet-rg", "")
+    rectangle ridentnpr{
+        
+        AzureVirtualNetwork(identitynprodvnet, "identity-nprod-vnet", "e_techn", "e_descr")
+    }
+    AzureResourceGroups(identityprodvnetrg, "identityprod-vnet-rg", "")
+    rectangle ridentpr {        
+        AzureVirtualNetwork(identityprodvnet, "identity-prod-vnet", "e_techn", "e_descr")
+    }
+}
+identityprodvnetrg --> ridentpr
+identitynprodvnetrg --> ridentnpr
+diti_identity --> identitynprodvnetrg
+diti_identity --> identityprodvnetrg
+
+AzureSubscription(Subscription, "OpenBanking - <env>", "e_techn", "e_descr")
+rectangle r2 {
+    AzureResourceGroups(K8sRg, "rg-br-<env>-k8s", "")
+    rectangle rk8s{  
+        AzureKubernetesService(aksAlias, "aks", "e_techn", "e_descr")
+        AzureContainerRegistry(acrAlias, "acr", "e_techn", "e_descr")    
+    }
+    K8sRg --> rk8s
+    rectangle {
+        AzureResourceGroups(VnetRg, "<env>_vnet_rg", "")
+        AzureVirtualNetwork(vnet_alias, "Vnet", "e_techn", "e_descr")
+        AzureVirtualNetwork(subnet_alias, "Subnet", "e_techn", "e_descr")
+    } 
+    rectangle {
+        AzureResourceGroups(NtIacRg, "NT_<iac-rg>_<aksname>_<location>", "ResourceGroup necessário para agrupar a infra de rede necessária para a correta criação e funcionamento do AKS")
+        AzureDNS(pvtDnsZAlias, "pvt_dns_zone", "e_techn", "e_descr")
+        agent "<b><user_assigned_identiy>"  as user_assigned_identiy #Yellow
+        agent "<b>< role_assignment >\nRole name: Private DNS Zone Contributor"  as PvtDNSZoneContrib 
+        agent "<b>< role_assignment >\nRole name: User Access Administrator"  as UserAccessAdmin 
+        agent "<b>< role_assignment >\nRole name: Contributor"  as Contrib 
+        agent "<b><private_dns_zone_virtual_network_link>\n linktoidnprod" as vnetlinknprod #LightBlue
+        agent "<b><private_dns_zone_virtual_network_link>\n linktoidprod" as vnetlinkprod #LightBlue
+    }
+    rectangle {
+        AzureResourceGroups(McIacRg, "MC_<iac-rg>_<aksname>_<location>", "ResourceGroup necessário para agrupar demais recursos de infra necessários para a correta criação e funcionamento do AKS")
+        AzureVirtualMachineScaleSet(vmssSystemAlias, "systempool", "e_techn", "e_descr")
+        AzureVirtualMachineScaleSet(vmssAppAlias, "apppool", "e_techn", "e_descr")
+        AzureLoadBalancer(lbAlias, "kubernetes-internal", "e_techn", "e_descr")
+        agent "<b><kubelet_identity>"  as kubelet_identity #Yellow 
+        agent "<b>< role_assignment >\nRole name: AcrPull"  as aks_acr_pull_allowed
+        agent "<b>< role_assignment >\nRole name: Contributor"  as Contrib1   
+        agent "<b>< Network Security Group >" as nsg #Blue      
+    }
+}
+azureAlias --> diti_identity
+azureAlias --> Subscription
+
+Subscription -down-> r2
+
+vnet_alias --> subnet_alias
+aksAlias ---> McIacRg
+aksAlias ---> NtIacRg
+aksAlias <-- kubelet_identity
+acrAlias --> kubelet_identity
+kubelet_identity --> aks_acr_pull_allowed
+kubelet_identity --> Contrib1
+user_assigned_identiy --> PvtDNSZoneContrib
+user_assigned_identiy --> UserAccessAdmin
+user_assigned_identiy --> Contrib
+lbAlias -> vmssAppAlias
+lbAlias -> vmssSystemAlias
+pvtDnsZAlias <-- vnetlinknprod
+pvtDnsZAlias <-- vnetlinkprod
+identitynprodvnet <-- vnetlinknprod
+identityprodvnet <-- vnetlinkprod
+subnet_alias ----> vmssSystemAlias
+subnet_alias ----> vmssAppAlias
+vmssSystemAlias <-- nsg
+vmssAppAlias <-- nsg
+
+@enduml
